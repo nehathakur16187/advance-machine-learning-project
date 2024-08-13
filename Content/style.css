@@ -1,0 +1,8 @@
+.spam{
+    font-weight: bold;
+    color: red;
+}
+.notspam{
+    font-weight: bold;
+    color: green
+}
