@@ -24,7 +24,7 @@ X_train, X_test, y_train, y_test = train_test_split(df['message'], df['label'], 
 tokenizer = Tokenizer(num_words=10000, oov_token='<OOV>')
 tokenizer.fit_on_texts(X_train)
 
-with open('tokenizer.pkl', 'wb') as f:
+with open('Model/tokenizer.pkl', 'wb') as f:
     pickle.dump(tokenizer, f)
 
 X_train_sequences = tokenizer.texts_to_sequences(X_train)
@@ -51,7 +51,7 @@ model.summary()
 
 early_stop = EarlyStopping(monitor='val_loss', patience=3, restore_best_weights=True)
 history = model.fit(X_train_padded, y_train, epochs=10, validation_data=(X_test_padded, y_test), batch_size=64, callbacks=[early_stop])
-model.save('spam_lstm_model.h5')
+model.save('Model/spam_lstm_model.h5')
 # Evaluate the model
 loss, accuracy = model.evaluate(X_test_padded, y_test)
 print(f"Test Accuracy: {accuracy * 100:.2f}%")
