@@ -21,7 +21,7 @@ df['label'] = label_encoder.fit_transform(df['label'])
 X_train, X_test, y_train, y_test = train_test_split(df['message'], df['label'], test_size=0.2, random_state=42)
 
 # Tokenize the text data
-tokenizer = Tokenizer(num_words=10000, oov_token='<OOV>')
+tokenizer = Tokenizer(num_words=5000, oov_token='<OOV>')
 tokenizer.fit_on_texts(X_train)
 
 with open('Model/tokenizer.pkl', 'wb') as f:
@@ -35,7 +35,7 @@ X_test_padded = pad_sequences(X_test_sequences, maxlen=100, padding='post', trun
 
 # Build the LSTM model
 model = Sequential([
-    Embedding(input_dim=10000, output_dim=64, input_length=100),
+    Embedding(input_dim=5000, output_dim=32, input_length=100),
     Bidirectional(LSTM(64, return_sequences=True)),
     Dropout(0.5),
     Bidirectional(LSTM(64)),
