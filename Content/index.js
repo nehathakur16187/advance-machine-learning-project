@@ -13,7 +13,19 @@ document.getElementById('emailForm').addEventListener('submit', async function (
         },
         body: JSON.stringify({ text: emailText })
     });
+    if (!response.ok) {
+        throw new Error(`Server error: ${response.status}`);
+    }
+    console.log('Response object:', response);
+    // Attempt to parse the JSON response
     const result = await response.json();
+
+    // Check if the result contains the expected data
+    if (result.spam !== undefined) {
+        result.spam ? spam() : notspam();
+    } else {
+        throw new Error("Unexpected response format");
+    }
     result.spam ? spam() : notspam();
 });
 
